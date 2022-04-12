@@ -13,6 +13,7 @@ import com.x2bee.demo.base.security.HTMLCharacterEscapes;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+    
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         // WebMvcConfigurerAdapter에 MessageConverter 추가

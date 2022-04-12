@@ -12,6 +12,7 @@ import org.apache.commons.text.translate.LookupTranslator;
 import com.fasterxml.jackson.core.SerializableString;
 import com.fasterxml.jackson.core.io.CharacterEscapes;
 import com.fasterxml.jackson.core.io.SerializedString;
+import com.x2bee.demo.base.util.RequestUtils;
 
 /**
  * @author choiyh44
@@ -42,10 +43,10 @@ public class HTMLCharacterEscapes extends CharacterEscapes {
         // 2. XSS 방지 처리 특수 문자 인코딩 값 지정
         // 여기에서 커스터마이징 가능
         final Map<CharSequence, CharSequence> initialMap = new HashMap<>();
-        initialMap.put("(", "&#40;");
-        initialMap.put(")", "&#41;");
-        initialMap.put("#", "&#35;");
-        initialMap.put("\'", "&#39;");
+//        initialMap.put("(", "&#40;");
+//        initialMap.put(")", "&#41;");
+//        initialMap.put("#", "&#35;");
+//        initialMap.put("\'", "&#39;");
         Map<CharSequence, CharSequence> CUSTOM_CHARS_ESCAPE = Collections.unmodifiableMap(initialMap);
         translator = new AggregateTranslator(
             new LookupTranslator(EntityArrays.BASIC_ESCAPE),  // <, >, &, " 는 여기에 포함됨
@@ -63,10 +64,16 @@ public class HTMLCharacterEscapes extends CharacterEscapes {
 
     @Override
     public SerializableString getEscapeSequence(int ch) {
-        return new SerializedString(translator.translate(Character.toString((char) ch)));
+        Boolean noXssFilter = RequestUtils.getAttribute("NoXssFilter");
+        if (noXssFilter != null && noXssFilter) {
+            return new SerializedString(Character.toString((char) ch));
+        }
+        else {
+            return new SerializedString(translator.translate(Character.toString((char) ch)));
+        }
 
         // 참고 - 커스터마이징이 필요없다면 아래와 같이 Apache Commons Lang3에서 제공하는 메서드를 써도 된다.
-        // return new SerializedString(StringEscapeUtils.escapeHtml4(Character.toString((char) ch)));
+        //return new SerializedString(StringEscapeUtils.escapeHtml4(Character.toString((char) ch)));
     }
     
 }
