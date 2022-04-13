@@ -17,12 +17,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         // WebMvcConfigurerAdapter에 MessageConverter 추가
-        converters.add(escapingConverter());
+        converters.add(escapingConverter(null));
     }
 
     @Bean
-    public HttpMessageConverter<?> escapingConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public HttpMessageConverter<?> escapingConverter(ObjectMapper mapper) {
+        ObjectMapper objectMapper = mapper.copy();
         objectMapper.getFactory().setCharacterEscapes(new HTMLCharacterEscapes());
 
         MappingJackson2HttpMessageConverter escapingConverter =
