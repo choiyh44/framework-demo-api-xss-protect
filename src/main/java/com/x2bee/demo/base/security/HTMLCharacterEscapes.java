@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.text.translate.AggregateTranslator;
 import org.apache.commons.text.translate.CharSequenceTranslator;
 import org.apache.commons.text.translate.EntityArrays;
@@ -69,11 +70,11 @@ public class HTMLCharacterEscapes extends CharacterEscapes {
             return new SerializedString(Character.toString((char) ch));
         }
         else {
-            return new SerializedString(translator.translate(Character.toString((char) ch)));
+            return new SerializedString(StringEscapeUtils.escapeHtml4(Character.toString((char) ch)));
+            // 참고 - 커스터마이징이 필요하다면 아래 메서드를 사용한다.
+            //return new SerializedString(translator.translate(Character.toString((char) ch)));
         }
 
-        // 참고 - 커스터마이징이 필요없다면 아래와 같이 Apache Commons Lang3에서 제공하는 메서드를 써도 된다.
-        //return new SerializedString(StringEscapeUtils.escapeHtml4(Character.toString((char) ch)));
     }
     
 }

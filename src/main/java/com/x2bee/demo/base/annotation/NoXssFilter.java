@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 개인정보사용 API임을 표시함.
+ * Xss 방어 맵핑 제외처리
  * @author choiyh44
  *
  */

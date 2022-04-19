@@ -4,6 +4,7 @@
 package com.x2bee.demo.app.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,11 +19,11 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @RestController
-@RequestMapping("/sample")
+@RequestMapping("/api/samples")
 @Slf4j
-public class SampleController {
+public class SampleApiController {
     @PostMapping("")
-    public SampleVo getSamples(SampleVo sample) {
+    public SampleVo getSamples(@RequestBody SampleVo sample) {
         log.info("Sample: {}", sample);
         
         return sample;
@@ -30,7 +31,7 @@ public class SampleController {
 
     @PostMapping("/noXssFilter")
     @NoXssFilter
-    public SampleVo getSamplesWithNoXssFilter(SampleVo sample) {
+    public SampleVo getSamplesWithNoXssFilter(@RequestBody SampleVo sample) {
         log.info("Sample: {}", sample);
         
         return sample;
