@@ -3,6 +3,8 @@
  */
 package com.x2bee.demo.app.controller;
 
+import com.x2bee.demo.base.annotation.NoXssChar;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,5 +20,6 @@ import lombok.ToString;
 @ToString
 public class SampleVo {
     private String name;
+    @NoXssChar
     private String description;
 }

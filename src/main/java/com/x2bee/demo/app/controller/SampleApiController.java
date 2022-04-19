@@ -3,6 +3,8 @@
  */
 package com.x2bee.demo.app.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,5 +38,14 @@ public class SampleApiController {
         
         return sample;
     }
+
+    @PostMapping("/noXssValidator")
+    public SampleVo getSamplesWithNoXssValidator(@RequestBody @Valid SampleVo sample) {
+        log.info("Sample: {}", sample);
+        
+        return sample;
+    }
+
+    
     
 }
